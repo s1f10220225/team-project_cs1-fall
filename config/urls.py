@@ -19,5 +19,5 @@ from word import views as word_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('word.urls')),
+    path('word/', include('word.urls')),
 ]
