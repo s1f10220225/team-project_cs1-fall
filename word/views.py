@@ -10,6 +10,17 @@ from word.models import Word
 def top(request):
     return render(request, 'word/top.html')
 
+
+
+def list(request):
+
+    context = {
+        
+    }
+    return render(request, "word/list.html", context)
+
+
+
 def test(request):
     try:
         word = Word.objects.filter(test_num=test_num, genre=genre)
