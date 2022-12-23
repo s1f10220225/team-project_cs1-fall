@@ -1,7 +1,7 @@
 from django.db import models
 
 # Create your models here.
-class Word():
+class Word(models.Model):
     word =
     meaning = 
     test_num = 
