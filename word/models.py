@@ -7,3 +7,5 @@ class Word(models.model):
     test_num = models.IntegerField(default=0)
     genre = models.ChairField()
     favorite = models.IntegerField()
+
+#genreとfavoriteは変えたほうがいいかも
