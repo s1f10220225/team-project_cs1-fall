@@ -8,14 +8,14 @@ from word.models import Word
 
 
 def top(request):
-    return render(request, 'word/top.html')
+    return render(request, "word/top.html")
 
 
 
 def list(request):
 
     context = {
-        
+
     }
     return render(request, "word/list.html", context)
 
