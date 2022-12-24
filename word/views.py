@@ -8,7 +8,18 @@ from word.models import Word, Test
 
 
 def top(request):
-    return render(request, 'word/top.html')
+    return render(request, "word/top.html")
+
+
+
+def list(request):
+
+    context = {
+
+    }
+    return render(request, "word/list.html", context)
+
+
 
 def test(request, test_num, genre):
     try:
