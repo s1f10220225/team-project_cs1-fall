@@ -54,6 +54,17 @@ def test(request, test_num, genre):
 
 
 #list用関数
+def index(request):
+	if request.method == 'POST':
+		Word = Word(word=request.POST['word'], meaning=request.POST['meaning'])
+		Word.save()
+		return redirect(detail, Word.id)
+		
+	context = {
+        "articles": Article.objects.all()
+    }
+	return render(request, 'blog/index.html', context)
+
 def detail(request, Word_id):
 	try:
 		Word = Word.objects.get(pk=Word_id)
@@ -69,7 +80,7 @@ def update(request, Word_id):
 	try:
 		Word = Word.objects.get(pk=Word_id)
 	except Word.DoesNotExist:
-		raise Http404("Article does not exist")
+		raise Http404("Word does not exist")
 	if request.method == 'POST':
 		Word.word = request.POST['word']
 		Word.meaning = request.POST['meaning']
@@ -96,6 +107,6 @@ def like(request, Word_id):
 		Word.favorite += 1
 		Word.save()
 	except Word.DoesNotExist:
-		raise Http404("Article does not exist")
+		raise Http404("Word does not exist")
 
 	return redirect(detail, Word_id)
