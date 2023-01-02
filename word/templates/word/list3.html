@@ -1,0 +1,40 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <link href="{% static 'blog/css/default.css' %}" rel="stylesheet">
+  </head>
+  <body>
+    <h1>Django Sample Application</h1>
+    <p>You can study word.</p>
+    <form action="{% url 'list3' %}" method="post">
+      {% csrf_token %}
+      <div>
+        <label for="titleInput">Word</label><br>
+        <input id="titleInput" name="title" type="text" placeholder="Input word">
+      </div>
+      <div>
+        <label for="textInput">Mean</label><br>
+        <textarea id="textInput" name="text" rows="3"></textarea>
+      </div>
+      <div>
+        <button type="submit">Submit</button>
+      </div>
+    </form>
+
+    <br>
+
+    {% if articles %}
+    {% for article in articles %}
+    <div class="text">
+      <h2><a href="{% url 'detail' article.id %}">{{ Word.word }}</a></h2>
+      {{ Word.meaning |linebreaksbr }}
+    </div>
+    {% endfor %}
+    {% else %}
+    <p>No article.</p>
+    {% endif %}
+
+  </body>
+</html>
