@@ -18,6 +18,7 @@ def list(request):
 
     }
     return render(request, "word/list.html", context)
+    #list用関数
 
 def genre_select(request):
     word = Word.objects.values_list('genre', flat=True)
