@@ -61,7 +61,7 @@ def index(request):
 		return redirect(detail, Word.id)
 		
 	context = {
-        "articles": Article.objects.all()
+        "Word": Word.objects.all()
     }
 	return render(request, 'blog/index.html', context)
 
