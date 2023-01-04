@@ -9,7 +9,6 @@ class Word(models.Model):
     test_num = models.IntegerField()
     genre = models.CharField(max_length=225)
     favorite = models.IntegerField(default=0)  # 0=No, 1=Yes
-    list_name = models.CharField(max_length=225)
 
 
 class Test(models.Model):
