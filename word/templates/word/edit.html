@@ -1,0 +1,27 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+  <head>    
+    <title>Edit page</title>
+    <meta charset="UTF-8">
+    <meta name="author" content="INIAD">
+  </head>
+  <body>
+    <h1 >Edit word</h1>
+    <form action="{% url 'update' Word.id %}" method="post">
+      {% csrf_token %}
+      <div>
+        <label for="titleInput">word</label><br>
+        <input id="titleInput" name="word" type="text"
+          placeholder="Input word" value="{{ Word.word }}">
+      </div>
+      <div>
+        <label for="textInput">meaning</label><br>
+        <textarea id="textInput" name="meaning" rows="3">{{ Word.meaning }}</textarea>
+      </div>
+      <div>
+        <button type="submit">Submit</button>
+      </div>
+    </form>
+  </body>
+</html>

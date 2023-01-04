@@ -54,16 +54,31 @@ def test(request, test_num, genre):
 
 
 #list用関数
-def index(request):
+#使えませんでした
+
+
+
+def list(request):
+	if request.method == 'POST':
+		Word = Word(list_name=request.POST['list_name'])
+		Word.save()
+		return redirect(detail, Word.id)
+		
+	context = {
+        "words": Word.objects.all()
+    }
+	return render(request, 'blog/list.html', context)
+
+def wordA(request):
 	if request.method == 'POST':
 		Word = Word(word=request.POST['word'], meaning=request.POST['meaning'])
 		Word.save()
 		return redirect(detail, Word.id)
 		
 	context = {
-        "articles": Article.objects.all()
+        "words": Word.objects.all()
     }
-	return render(request, 'blog/index.html', context)
+	return render(request, 'blog/wordA.html', context)
 
 def detail(request, Word_id):
 	try:
@@ -99,7 +114,7 @@ def delete(request, Word_id):
 
 	Word.delete()
 
-	return redirect(list3)
+	return redirect(list)
 
 def like(request, Word_id):
 	try:

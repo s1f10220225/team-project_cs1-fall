@@ -8,7 +8,7 @@
 
 <body>
     <h1>単語リスト</h1>
-    <h2>単語リスト作成</h2>>
+    <h2>単語リスト作成</h2>
 </body>
 
 </html>
@@ -17,41 +17,41 @@
 
 {% load static %}
 <!DOCTYPE html>
-<html>
+<html lang="ja">
   <head>
+    <title>単語リスト</title>
     <meta charset="UTF-8">
-    <link href="{% static 'blog/css/default.css' %}" rel="stylesheet">
+    <meta name="author" content="INIAD">
   </head>
   <body>
-    <h1>Django Sample Application</h1>
-    <p>You can study word.</p>
-    <form action="{% url 'list3' %}" method="post">
+
+    <h1>単語リスト</h1>
+    <p>単語リスト作成</p>
+    <form action="{% url 'list' %}" method="post">
       {% csrf_token %}
       <div>
-        <label for="titleInput">Word</label><br>
-        <input id="titleInput" name="title" type="text" placeholder="Input word">
-      </div>
-      <div>
-        <label for="textInput">Meaning</label><br>
-        <textarea id="textInput" name="text" rows="3"></textarea>
+        <label for="titleInput">list_name</label><br>
+        <input id="titleInput" name="list_name" type="text" placeholder="Input title">
       </div>
       <div>
         <button type="submit">Submit</button>
       </div>
     </form>
-
     <br>
-
+    
     {% if Words %}
     {% for Word in Words %}
     <div class="text">
-      <h2><a href="{% url 'word' Word.id %}">{{ Word.word }}</a></h2>
-      {{ Word.meaning |linebreaksbr }}
+      <h2><a href="{% url 'wordA' Word.id %}">{{  Word.list_name }}</a></h2>
+      <div>
+        <a href="" onclick="like({{Word.id}});">
+          Like: <span id="favorite{{Word.id}}">{{ Word.favorite }}</span>
+        </a>
+      </div>
     </div>
     {% endfor %}
     {% else %}
-    <p>No article.</p>
+    <p>No word.</p>
     {% endif %}
-
   </body>
 </html>

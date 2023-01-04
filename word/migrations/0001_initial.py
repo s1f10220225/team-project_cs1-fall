@@ -15,11 +15,12 @@ class Migration(migrations.Migration):
             name='Word',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('word', models.TextField()),
+                ('word', models.CharField(max_length=225)),
                 ('meaning', models.TextField()),
                 ('test_num', models.IntegerField()),
                 ('genre', models.TextField()),
                 ('favorite', models.IntegerField()),
+                ('list_name', models.CharField(max_length=225))
             ],
         ),
     ]

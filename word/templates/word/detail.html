@@ -1,0 +1,41 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Detail page</title>
+    <meta charset="UTF-8">
+    <meta name="author" content="INIAD">
+  </head>
+  <body>
+    <h1>Django Sample Application</h1>
+    <h2>Title: {{ Word.word }}</h2>
+    <div>
+      {{ Word.meaning | linebreaksbr }}
+    </div>
+    
+    <h2>Comments</h2>
+    <form action="{% url 'detail' article.id %}" method="post">
+      {% csrf_token %}
+      <div>
+        <label for="textInput">Text</label><br>
+        <textarea id="textInput" name="text" rows="3"></textarea>
+      </div>
+      <div>
+        <button type="submit">Submit</button>
+      </div>
+    </form>
+
+#ここに
+    {% endfor %}
+    {% else %}
+    <p>No comment.</p>
+    {% endif %}
+
+    <hr>
+    <p>
+  	  <a href="{% url 'list' %}">Top</a> | 
+      <a href="{% url 'update' Word.id %}">Edit</a> | 
+      <a href="{% url 'delete' Word.id %}">Delete</a>  
+	  </p>
+  </body>
+</html>

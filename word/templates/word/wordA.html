@@ -1,0 +1,43 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Index page</title>
+    <meta charset="UTF-8">
+    <meta name="author" content="INIAD">
+    <script type="text/javascript" src="{% static 'blog/js/index.js' %}" ></script>
+  </head>
+
+  <body>
+    <h1>リスト編集</h1>
+    <p>You can submit articles from the following form.</p>
+    <form action="{% url 'wordA' %}" method="post">
+      {% csrf_token %}
+      <div>
+        <label for="titleInput">Word</label><br>
+        <input id="titleInput" name="word" type="text" placeholder="Input word">
+      </div>
+      <div>
+        <label for="textInput">Meaning</label><br>
+        <textarea id="textInput" name="meaning" rows="3"></textarea>
+      </div>
+      <div>
+        <button type="submit">Submit</button>
+      </div>
+    </form>
+    <br>
+    
+    {% if Words %}
+    {% for Word in Words %}
+    <div class="text">
+      <h2><a href="{% url 'detail' Word.id %}">{{  Word.word }}</a></h2>
+      <div>
+        {{ Word.meaning |linebreaksbr }}
+      </div>
+    </div>
+    {% endfor %}
+    {% else %}
+    <p>No Word.</p>
+    {% endif %}
+  </body>
+</html>
