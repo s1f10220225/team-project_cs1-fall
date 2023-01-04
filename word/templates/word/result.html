@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <title>単語テスト</title>
+</head>
+
+<body>
+    <h1>{{ genre }} 第{{ test_num }}回のテスト</h1>
+
+    <h3>{{ point }}/{{ full }}点</h3>
+
+    <br>
+    <h3>テスト内容</h3>
+
+    {% load static %}
+    {% for test in test_data %}
+    <div class="every_test">
+        <p>結果：
+            {% if test.answer == correct_answer %}
+            正解
+        </p>
+        <img src="{% static 'word/img/0.png' %}" width="50px">
+        {% else %}
+        不正解
+        </p>
+        <img src="{% static 'word/img/1.png' %}" width="50px">
+        {% endif %}
+        <p>あなたの答え:{{ test.answer }}</p>
+        <p>正答:{{ test.correct_answer }}</p>
+
+        <div class="word">
+            <h3>{{ test.word }}</h3>
+        </div>
+        <div class="options">
+            <ol>
+                <li>{{ test.option1 }}</li>
+                <li>{{ test.option2 }}</li>
+                <li>{{ test.option3 }}</li>
+                <li>{{ test.option4 }}</li>
+            </ol>
+        </div>
+    </div>
+    {% endfor %}
+
+    <a href="{% url 'test' genre test_num %}">もう一度同じ問題に挑戦する!</a>
+
+</body>
+
+</html>
