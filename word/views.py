@@ -22,6 +22,7 @@ def list(request, belong):
         'words': word,
         'info': info,
         'genre': Genre.objects.get(pk=info.genre_id),
+        'add_num': [i+1 for i in range(10)]
     }
     return render(request, "word/list.html", context)
 
@@ -56,6 +57,26 @@ def word_edit(request, word_num, belong):
         'info': belong,
     }
     return render(request, "word/word_edit.html", context)
+
+def word_add(request, belong):
+    if request.method == 'POST':
+        select = int(request.POST['select_num'])
+
+    context = {
+        'info': belong,
+        'select_lst': [i for i in range(select)],
+        'select': select,
+    }
+    return render(request, "word/word_add.html", context)
+
+def word_update(request, belong, select):
+    if request.method == 'POST':
+        for s in [i for i in range(select)]:
+            word = Word(word=request.POST[f'word{s}'], meaning=request.POST[f'meaning{s}'], belonging_list_id=belong)
+            word.save()
+
+    return redirect(f"http://127.0.0.1:8000/word/list/{belong}")
+
 
 def word_delete(request, word_num, belong):
     try:
