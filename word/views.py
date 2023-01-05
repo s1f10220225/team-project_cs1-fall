@@ -22,22 +22,76 @@ def list(request, belong):
         'words': word,
         'info': info,
         'genre': Genre.objects.get(pk=info.genre_id),
-        'add_num': [i+1 for i in range(10)]
+        'add_num': [i+1 for i in range(20)]
     }
     return render(request, "word/list.html", context)
 
 def genre_list(request):
+    try:
+        genre = Genre.objects.all()
+    except Genre.DoesNotExist:
+        return redirect(f"http://127.0.0.1:8000/word/first/list_select")
     context = {
-        'genre_list': Genre.objects.all(),
+        'genre_list': genre,
     }
     return render(request, "word/list_select.html", context)
 
 def name_list(request, genre):
+    try:
+        info = Listinfo.objects.filter(genre_id=genre)
+    except Listinfo.DoesNotExist:
+        return redirect(f"http://127.0.0.1:8000/word/first/list_select/{genre}")
     context = {
         'genre_list': Genre.objects.get(pk=genre),
-        'info': Listinfo.objects.filter(genre_id=genre),
+        'info': info,
     }
     return render(request, "word/list_select.html", context)
+
+
+def first_genre_select(request):
+    return render(request, "word/first_list_select.html")
+
+def first_list_select(request, genre):
+    context = {
+        'genre_list': Genre.objects.get(pk=genre),
+    }
+    return render(request, f"word/first_list_select.html", context)
+    
+def cd_genre(request):
+    context = {
+        'genre': Genre.objects.all(),
+    }
+    return render(request, "word/cd_genre.html", context)
+
+def create_genre(request):
+    if request.method == 'POST':
+            genre = Genre(genre=request.POST['name'])
+            genre.save()
+    return redirect(f"http://127.0.0.1:8000/word/cd_genre")
+
+def genre_delete(request, genre):
+    genre = Genre.objects.get(pk=genre)
+    genre.delete()
+    return redirect(f"http://127.0.0.1:8000/word/cd_genre")
+
+
+def cd_list(request, genre):
+    context = {
+        'genre': genre,
+        'info': Listinfo.objects.filter(genre_id=genre),
+    }
+    return render(request, "word/cd_list.html", context)
+
+def create_list(request, genre):
+    if request.method == 'POST':
+            list = Listinfo(genre_id=genre, list_num=request.POST['num'], list_name=request.POST['name'])
+            list.save()
+    return redirect(f"http://127.0.0.1:8000/word/cd_list/{genre}")
+
+def list_delete(request, genre, id):
+    list = Listinfo.objects.get(pk=id)
+    list.delete()
+    return redirect(f"http://127.0.0.1:8000/word/cd_list/{genre}")
 
 
 def word_edit(request, word_num, belong):

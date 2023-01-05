@@ -7,27 +7,17 @@
 </head>
 
 <body>
-    {% if info %}
+    {% if genre_list %}
     <div>
         <p>選択したジャンル</p>
         <p>{{ genre_list.genre }}</p>
         <a href="{% url 'genre_list' %}">ジャンルを選びなおす</a>
         <br>
         <a href="{% url 'cd_list' genre_list.id %}">単語リストの作成・削除</a>
-        <br>
-        <h2>単語リストを選択してください</h2>
-        {% for i in info %}
-        <a href="{% url 'list' i.id %}">{{ i.list_num }} {{ i.list_name }}</a>
-        {% endfor %}
     </div>
     {% else %}
     <div>
         <a href="{% url 'cd_genre' %}">ジャンルの作成・削除</a>
-        <br>
-        <h2>ジャンルを選択してください</h2>
-        {% for g in genre_list %}
-        <a href="{% url 'name_list' g.id %}">{{ g.genre }}</a>
-        {% endfor %}
     </div>
     {% endif %}
 </body>

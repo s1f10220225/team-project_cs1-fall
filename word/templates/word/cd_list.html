@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <title>リストの作成・削除</title>
+</head>
+
+<body>
+    <h2>リストの作成</h2>
+    <br>
+<form action="{% url 'create_list' genre %}" method="post">
+    {% csrf_token %}
+    <label>作成するリスト番号を入力してください(重複可)</label>
+    <textarea rows="1" name="num"></textarea>
+    <br>
+    <label>作成するリスト名を入力してください(重複可)</label>
+    <textarea rows="1" name="name"></textarea>
+    <br>
+    <button type="submit">決定</button>
+</form>
+<h2>リストの削除</h2>
+<br>
+<h3>リストを削除するとそのリスト内の単語も削除されます。</h3>
+    <table>
+        <tr>
+            <th>リスト番号</th>
+            <th>リスト名</th>
+            <th></th>
+        </tr>
+        {% for i in info %}
+        <tr>
+            <td>{{ i.list_num }}</td>
+            <td>{{ i.list_name }}</td>
+            <td><a href="{% url 'list_delete' genre i.id %}">削除する</a></td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+
+</html>

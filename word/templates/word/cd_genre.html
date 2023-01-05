@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <title>ジャンルの作成・削除</title>
+</head>
+
+<body>
+    <h2>ジャンルの作成</h2>
+    <br>
+    <form action="{% url 'create_genre' %}" method="post">
+        {% csrf_token %}
+        <label>作成するジャンル名を入力してください(重複不可)</label>
+        <textarea rows="1" name="name"></textarea>
+        <br>
+        <button type="submit">決定</button>
+    </form>
+    <br>
+    <h2>ジャンルの削除</h2>
+    <br>
+        <h3>ジャンルを削除するとそのジャンル内のリストも削除されます。</h3>
+        <table>
+            <tr>
+                <th></th>
+                <th>ジャンル</th>
+                <th></th>
+            </tr>
+            {% for g in genre %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ g.genre }}</td>
+                <td><a href="{% url 'genre_delete' g.id %}">削除する</a></td>
+            </tr>
+            {% endfor %}
+        </table>
+</body>
+
+</html>

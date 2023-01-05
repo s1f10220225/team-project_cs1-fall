@@ -8,7 +8,7 @@
 
 <body>
     {% if test_data %}
-    <h1>{{ genre.genre }} 第{{ info.list_num }}回のテスト</h1>
+    <h1>{{ genre.genre }} No.{{ info.list_num }} {{ info.list_name }} のテスト</h1>
     <p><b>表示される単語の意味を選びなさい。</b></p>
 
     <form action="{% url 'result' info.id %}" method="post">
