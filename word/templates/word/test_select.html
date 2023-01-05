@@ -7,29 +7,25 @@
 </head>
 
 <body>
-    <h2>テスト内容を選択してください</h2>
-    {% if genre %}
+        <h2>テスト内容を選択してください</h2>
+        {% if info %}
         <div>
             <p>選択したジャンル</p>
-            <p>{{ genre }}</p>
+            <p>{{ genre_list.genre }}</p>
             <a href="{% url 'genre_select' %}">ジャンルを選びなおす</a>
             <br>
-            <h2>テストしたい単語リストを選択してください</h2>
-            <p><b>＊リストをクリックするとテストが始まります</b></p>
-            {% for name in list_name %}
-            <p>{{ name }}</p>
-            <!--リスト名無しならnameをnumになるように変更すれば行ける-->
-                <a href="{% url 'test' genre name.test_num %}">{{ name.test_num }} {{ name.list_name }}</a>
+            <h2>単語リストを選択してください</h2>
+            {% for i in info %}
+            <a href="{% url 'test' i.id %}">{{ i.list_num }} {{ i.list_name }}</a>
             {% endfor %}
         </div>
-    {% else %}
+        {% else %}
         <div>
-            <h2>テストしたいジャンルを選択してください</h2>
-                {% for genre in genre_list %}
-                <a href="{% url 'num_select' genre %}">{{ genre }}</a>
-                {% endfor %}
+            <h2>ジャンルを選択してください</h2>
+            {% for g in genre_list %}
+            <a href="{% url 'num_select' g.id %}">{{ g.genre }}</a>
+            {% endfor %}
         </div>
-
         {% endif %}
 </body>
 

@@ -30,30 +30,21 @@ def name_list(request, genre):
 
 
 def genre_select(request):
-    word = Word.objects.values_list('genre', flat=True)
-    genre_list = dict.fromkeys(word)
     context = {
-        'genre_list': genre_list,
+        'genre_list': Genre.objects.all(),
     }
     return render(request, "word/test_select.html", context)
 
 def num_select(request, genre):
-    word = Word.objects.filter(genre=genre).values_list('test_num', flat=True)
-    test_num_list = dict.fromkeys(word)
-    list_name_list = []
-    for i in test_num_list:
-        list_name_list.append(Word.objects.filter(pk=i))
-
     context = {
-        'test_num': test_num_list,
-        'list_name' : list_name_list,
-        'genre' : genre,
+        'genre_list': Genre.objects.get(pk=genre),
+        'info': Listinfo.objects.filter(genre_id=genre),
     }
     return render(request, "word/test_select.html", context)
 
-def test(request, genre, test_num):
+def test(request, belong):
     try:
-        word = Word.objects.filter(test_num=test_num, genre=genre)
+        word = Word.objects.filter(belonging_list_id=belong)
     except Word.DoesNotExist:
         raise Http404("Word data does not exist")
 
@@ -97,22 +88,25 @@ def test(request, genre, test_num):
         # 単語や選択肢をテスト用のModelに追加
         test_data = Test(word= correct_word, option1=word_options_list[0], option2=word_options_list[1], option3=word_options_list[2], option4=word_options_list[3], correct_answer=correct_answer)
         test_data.save()
+    
+    info = Listinfo.objects.get(pk=belong)
 
     context = {
         'word': word,
         'test_data': Test.objects.all(),
-        'genre' : genre,
-        'test_num' : test_num,
+        'info': info,
+        'genre': Genre.objects.get(pk=info.id),
     }
     return render(request, "word/test.html", context)
 
-def result(request, genre, test_num):
+def result(request, belong):
     try:
         test_data = Test.objects.all()
     except Test.DoesNotExist:
         raise Http404("Test data does not exist")
     if request.method == 'POST':
         cnt = 1
+        test_data = Test.objects.all()
         for i in test_data:
             result = Test.objects.get(pk=i.id)
             result.answer = request.POST[f'{cnt}']
@@ -124,12 +118,15 @@ def result(request, genre, test_num):
         result = Test.objects.get(pk=i.id)
         if result.answer == result.correct_answer:
             pnt += 1
+    
+    info = Listinfo.objects.get(pk=belong)
+    
     context = {
-        'word': Word.objects.filter(test_num=test_num, genre=genre),
+        'word': Word.objects.filter(belonging_list_id=belong),
         'test_data': Test.objects.all(),
         'point': pnt,
         'full': cnt,
-        'genre' : genre,
-        'test_num' : test_num,
+        'info': info,
+        'genre': Genre.objects.get(pk=info.id),
     }
     return render(request, "word/result.html", context)

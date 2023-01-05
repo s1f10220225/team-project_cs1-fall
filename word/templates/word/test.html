@@ -8,10 +8,10 @@
 
 <body>
     {% if test_data %}
-    <h1>{{ genre }} 第{{ test_num }}回のテスト</h1>
+    <h1>{{ genre.genre }} 第{{ info.list_num }}回のテスト</h1>
     <p><b>表示される単語の意味を選びなさい。</b></p>
 
-    <form action="{% url 'result' genre test_num %}" method="post">
+    <form action="{% url 'result' info.id %}" method="post">
     {% csrf_token %}
     {% for test in test_data %}
         <div class="every_test">

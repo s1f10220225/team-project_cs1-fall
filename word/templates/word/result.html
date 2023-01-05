@@ -27,8 +27,6 @@
         </p>
         <img src="{% static 'word/img/1.png' %}" width="50px">
         {% endif %}
-        <p>あなたの答え:{{ test.answer }}</p>
-        <p>正答:{{ test.correct_answer }}</p>
 
         <div class="word">
             <h3>{{ test.word }}</h3>
@@ -41,10 +39,12 @@
                 <li>{{ test.option4 }}</li>
             </ol>
         </div>
+        <p>あなたの答え:{{ test.answer }}</p>
+        <p>正答:{{ test.correct_answer }}</p>
     </div>
     {% endfor %}
 
-    <a href="{% url 'test' genre test_num %}">もう一度同じ問題に挑戦する!</a>
+    <a href="{% url 'test' info.id %}">もう一度同じ問題に挑戦する!</a>
 
 </body>
 
