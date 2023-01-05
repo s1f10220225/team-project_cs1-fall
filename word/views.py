@@ -20,6 +20,20 @@ def list(request):
     return render(request, "word/list.html", context)
 
 
+#使用不可list関数
+#def list(request):
+#if request.method == 'POST':
+		#Word = Word(list_name=request.POST['list_name'])
+		#Word.save()
+		#return redirect(list, Word.id)
+		
+	#context = {
+        #"words": Word.objects.all()
+    #}
+	#return render(request, 'word/list.html', context)
+
+
+
 
 def test(request, test_num, genre):
     try:
@@ -58,16 +72,7 @@ def test(request, test_num, genre):
 
 
 
-def list(request):
-	if request.method == 'POST':
-		Word = Word(list_name=request.POST['list_name'])
-		Word.save()
-		return redirect(detail, Word.id)
-		
-	context = {
-        "words": Word.objects.all()
-    }
-	return render(request, 'blog/list.html', context)
+
 
 def wordA(request):
 	if request.method == 'POST':
@@ -78,7 +83,7 @@ def wordA(request):
 	context = {
         "words": Word.objects.all()
     }
-	return render(request, 'blog/wordA.html', context)
+	return render(request, 'word/wordA.html', context)
 
 def detail(request, Word_id):
 	try:
@@ -89,7 +94,7 @@ def detail(request, Word_id):
 	context = {
 		'Word': Word
 	}
-	return render(request, "blog/detail.html", context)
+	return render(request, "word/detail.html", context)
 
 def update(request, Word_id):
 	try:
@@ -104,7 +109,7 @@ def update(request, Word_id):
 	context = {
 		'Word': Word
 	}
-	return render(request, "blog/edit.html", context)
+	return render(request, "word/edit.html", context)
 
 def delete(request, Word_id):
 	try:

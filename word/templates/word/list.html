@@ -1,23 +1,5 @@
 <!DOCTYPE html>
 <html lang="ja">
-
-<head>
-    <meta charset="UTF-8">
-    <title>単語リスト</title>
-</head>
-
-<body>
-    <h1>単語リスト</h1>
-    <h2>単語リスト作成</h2>
-</body>
-
-</html>
-
-#-------------
-
-{% load static %}
-<!DOCTYPE html>
-<html lang="ja">
   <head>
     <title>単語リスト</title>
     <meta charset="UTF-8">
@@ -30,7 +12,7 @@
     <form action="{% url 'list' %}" method="post">
       {% csrf_token %}
       <div>
-        <label for="titleInput">list_name</label><br>
+        <label for="titleInput">リスト名入力</label><br>
         <input id="titleInput" name="list_name" type="text" placeholder="Input title">
       </div>
       <div>
