@@ -2,15 +2,19 @@ from django.db import models
 
 # Create your models here.
 
+class Genre(models.Model):
+    genre = models.CharField(max_length=225, unique=True)
+    
+
+class Listinfo(models.Model):
+    genre = models.ForeignKey(Genre, on_delete=models.CASCADE, related_name="Genre")
+    list_num = models.IntegerField()
+    list_name = models.CharField(max_length=225, null=True)
 
 class Word(models.Model):
     word = models.CharField(max_length=255)
     meaning = models.TextField()
-    test_num = models.IntegerField()
-    genre = models.CharField(max_length=225)
-    favorite = models.IntegerField(default=0)  # 0=No, 1=Yes
-    list_name = models.CharField(max_length=225, null=True)
-
+    belonging_list = models.ForeignKey(Listinfo, on_delete=models.CASCADE, related_name="list_info", null=True)
 
 class Test(models.Model):
     word = models.CharField(max_length=225)

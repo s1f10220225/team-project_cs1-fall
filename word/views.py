@@ -1,8 +1,7 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
 from django.http import Http404
 import random
-from word.models import Word, Test
+from word.models import Genre, Listinfo, Word, Test
 
 # Create your views here.
 
@@ -11,14 +10,24 @@ def top(request):
     return render(request, "word/top.html")
 
 
-
 def list(request):
-
     context = {
-
     }
     return render(request, "word/list.html", context)
-    #list用関数
+
+def genre_list(request):
+    context = {
+        'genre_list': Genre.objects.all(),
+    }
+    return render(request, "word/list_select.html", context)
+
+def name_list(request, genre):
+    context = {
+        'genre_list': Genre.objects.get(pk=genre),
+        'info': Listinfo.objects.filter(genre_id=genre),
+    }
+    return render(request, "word/list_select.html", context)
+
 
 def genre_select(request):
     word = Word.objects.values_list('genre', flat=True)
