@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <title>単語・意味の編集</title>
+</head>
+
+<body>
+    <h1>単語・意味の編集</h1>
+    <br>
+    <form action="{% url 'word_edit' word.id info %}" method="post">
+        {% csrf_token %}
+        <table>
+            <tr>
+                <th>単語</th>
+                <th>意味</th>
+            </tr>
+            <tr>
+                <td><textarea rows="1" name="word">{{ word.word }}</textarea></td>
+                <td><textarea rows="1" name="meaning">{{ word.meaning }}</textarea></td>
+            </tr>
+        </table>
+    <button type="submit">変更を確定する</button>
+    </form>
+
+    <h2>単語リスト作成</h2>
+</body>
+
+</html>

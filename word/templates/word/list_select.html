@@ -15,7 +15,7 @@
         <br>
         <h2>単語リストを選択してください</h2>
         {% for i in info %}
-        <a href="{% url 'list' genre_list.id i.list_num %}">{{ i.list_num }} {{ i.list_name }}</a>
+        <a href="{% url 'list' i.id %}">{{ i.list_num }} {{ i.list_name }}</a>
         {% endfor %}
     </div>
     {% else %}

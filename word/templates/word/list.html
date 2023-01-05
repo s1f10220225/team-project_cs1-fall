@@ -8,6 +8,27 @@
 
 <body>
     <h1>単語リスト</h1>
+    <p></p>{{ genre.genre }} No.{{ info.list_num }} の単語リスト
+    <br>
+    <table>
+        <tr>
+            <th></th>
+            <th>単語</th>
+            <th>意味</th>
+            <th>       </th>
+            <th>       </th>
+        </tr>
+        {% for word in words %}
+        <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ word.word }}</td>
+            <td>{{ word.meaning }}</td>
+            <td><a href="{% url 'word_edit' word.id info.id %}">編集する</a></td>
+            <td><a href="{% url 'word_delete' word.id info.id %}">削除する</a></td>
+        </tr>
+        {% endfor %}
+    </table>
+    
     <h2>単語リスト作成</h2>
 </body>
 

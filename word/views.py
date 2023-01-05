@@ -10,8 +10,18 @@ def top(request):
     return render(request, "word/top.html")
 
 
-def list(request):
+def list(request, belong):
+    try:
+        word = Word.objects.filter(belonging_list_id=belong)
+    except Word.DoesNotExist:
+        raise Http404("Word data does not exist")
+
+    info = Listinfo.objects.get(pk=belong)
+
     context = {
+        'words': word,
+        'info': info,
+        'genre': Genre.objects.get(pk=info.genre_id),
     }
     return render(request, "word/list.html", context)
 
@@ -27,6 +37,35 @@ def name_list(request, genre):
         'info': Listinfo.objects.filter(genre_id=genre),
     }
     return render(request, "word/list_select.html", context)
+
+
+def word_edit(request, word_num, belong):
+    try:
+        word = Word.objects.get(pk=word_num)
+    except Word.DoesNotExist:
+        raise Http404("Word data does not exist")
+
+    if request.method == 'POST':
+        word.word = request.POST['word']
+        word.meaning = request.POST['meaning']
+        word.save()
+        return redirect(f"http://127.0.0.1:8000/word/list/{belong}")
+
+    context = {
+        'word': word,
+        'info': belong,
+    }
+    return render(request, "word/word_edit.html", context)
+
+def word_delete(request, word_num, belong):
+    try:
+        word = Word.objects.get(pk=word_num)
+    except Word.DoesNotExist:
+        raise Http404("Word data does not exist")
+
+    word.delete()
+
+    return redirect(f"http://127.0.0.1:8000/word/list/{belong}")
 
 
 def genre_select(request):
