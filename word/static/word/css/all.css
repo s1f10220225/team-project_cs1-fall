@@ -15,6 +15,14 @@ h2 {
 
 }
 
+li {
+    display: block;
+    margin: 0px 10px 5px 0px;
+    padding: 5px 5px 5px 5px;
+    border-right: solid 2px #cccccc;
+    background-color: #eeeeee;
+}
+
 input {
     margin: 5px 20px 0px 20px;
 }

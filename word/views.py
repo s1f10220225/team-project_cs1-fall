@@ -206,7 +206,7 @@ def test(request, belong):
     for _ in test:
         cnt += 1
     if cnt < 4:
-        return redirect(f"http://127.0.0.1:8000/word/test/{info.id}/error")
+        return redirect(f"http://127.0.0.1:8000/word/test/{belong}/error")
     
     info = Listinfo.objects.get(pk=belong)
     genre = Genre.objects.get(pk=info.genre_id)
