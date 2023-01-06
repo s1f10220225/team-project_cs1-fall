@@ -39,7 +39,7 @@ def genre_list(request):
 def name_list(request, genre):
     context = {
         'genre_list': Genre.objects.get(pk=genre),
-        'info': Listinfo.objects.filter(genre_id=genre),
+        'info': Listinfo.objects.filter(genre_id=genre).order_by('list_num'),
     }
     try:
         return render(request, "word/list_select.html", context)
@@ -76,7 +76,7 @@ def genre_delete(request, genre):
 def cd_list(request, genre):
     context = {
         'genre': genre,
-        'info': Listinfo.objects.filter(genre_id=genre),
+        'info': Listinfo.objects.filter(genre_id=genre).order_by('list_num'),
     }
     return render(request, "word/cd_list.html", context)
 
@@ -150,7 +150,7 @@ def genre_select(request):
 def num_select(request, genre):
     context = {
         'genre_list': Genre.objects.get(pk=genre),
-        'info': Listinfo.objects.filter(genre_id=genre),
+        'info': Listinfo.objects.filter(genre_id=genre).order_by('list_num','list_name'),
     }
     return render(request, "word/test_select.html", context)
 
@@ -201,15 +201,39 @@ def test(request, belong):
         test_data = Test(word= correct_word, option1=word_options_list[0], option2=word_options_list[1], option3=word_options_list[2], option4=word_options_list[3], correct_answer=correct_answer)
         test_data.save()
     
+    test = Test.objects.all()
+    cnt = 0
+    for _ in test:
+        cnt += 1
+    if cnt < 4:
+        return redirect(f"http://127.0.0.1:8000/word/test/{info.id}/error")
+    
+    info = Listinfo.objects.get(pk=belong)
+    genre = Genre.objects.get(pk=info.genre_id)
+    context = {
+        'word': word,
+        'test_data': test,
+        'info': info,
+        'genre': genre,
+    }
+    return render(request, "word/test.html", context)
+
+def test_error(request, belong):
+    try:
+        word = Word.objects.filter(belonging_list_id=belong)
+    except Word.DoesNotExist:
+        raise Http404("Word data does not exist")
+
     info = Listinfo.objects.get(pk=belong)
 
     context = {
-        'word': word,
-        'test_data': Test.objects.all(),
+        'words': word,
         'info': info,
-        'genre': Genre.objects.get(pk=info.id),
+        'genre': Genre.objects.get(pk=info.genre_id),
+        'add_num': [i+1 for i in range(20)]
     }
-    return render(request, "word/test.html", context)
+    return render(request, "word/test_error.html", context)
+
 
 def result(request, belong):
     try:

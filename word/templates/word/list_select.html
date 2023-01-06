@@ -11,23 +11,27 @@
     <div>
         <p>選択したジャンル</p>
         <p>{{ genre_list.genre }}</p>
-        <a href="{% url 'genre_list' %}">ジャンルを選びなおす</a>
+        <input type="button" onclick="window.history.back();" value="ジャンルを選びなおす">
         <br>
         <a href="{% url 'cd_list' genre_list.id %}">単語リストの作成・削除</a>
         <br>
         <h2>単語リストを選択してください</h2>
+        <ol>
         {% for i in info %}
-        <a href="{% url 'list' i.id %}">{{ i.list_num }} {{ i.list_name }}</a>
+            <li><a href="{% url 'list' i.id %}">{{ i.list_num }} {{ i.list_name }}</a></li>
         {% endfor %}
+        </ol>
     </div>
     {% else %}
     <div>
         <a href="{% url 'cd_genre' %}">ジャンルの作成・削除</a>
         <br>
         <h2>ジャンルを選択してください</h2>
-        {% for g in genre_list %}
-        <a href="{% url 'name_list' g.id %}">{{ g.genre }}</a>
-        {% endfor %}
+        <ol>
+            {% for g in genre_list %}
+            <li><a href="{% url 'name_list' g.id %}">{{ g.genre }}</a></li>
+            {% endfor %}
+        </ol>
     </div>
     {% endif %}
 </body>

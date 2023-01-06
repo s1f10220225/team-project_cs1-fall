@@ -9,6 +9,8 @@
 <body>
     <h1>単語・意味の編集</h1>
     <br>
+    <input type="button" onclick="window.history.back();" value="前のページに戻る">
+    <br>
     <form action="{% url 'word_edit' word.id info %}" method="post">
         {% csrf_token %}
         <table>

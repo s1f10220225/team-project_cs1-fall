@@ -21,5 +21,6 @@ urlpatterns = [
     path('test/select', views.genre_select, name='genre_select'),
     path('test/select/<int:genre>', views.num_select, name='num_select'),
     path('test/<int:belong>', views.test, name='test'),
+    path('test/<int:belong>/error', views.test_error, name='test_error'),
     path('test/result/<int:belong>', views.result, name='result'),
 ]

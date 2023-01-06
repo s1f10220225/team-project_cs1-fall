@@ -11,7 +11,7 @@
     <div>
         <p>選択したジャンル</p>
         <p>{{ genre_list.genre }}</p>
-        <a href="{% url 'genre_list' %}">ジャンルを選びなおす</a>
+        <input type="button" onclick="window.history.back();" value="ジャンルを選びなおす">
         <br>
         <a href="{% url 'cd_list' genre_list.id %}">単語リストの作成・削除</a>
     </div>
