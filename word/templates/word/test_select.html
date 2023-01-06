@@ -4,30 +4,51 @@
 <head>
     <meta charset="UTF-8">
     <title>単語テスト</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'word/css/all.css' %}">
 </head>
 
 <body>
-        <input type="button" onclick="window.history.back();" value="戻る">
-        <h2>テスト内容を選択してください</h2>
-        {% if info %}
-        <div>
-            <p>選択したジャンル</p>
-            <p>{{ genre_list.genre }}</p>
-            <a href="{% url 'genre_select' %}">ジャンルを選びなおす</a>
-            <br>
-            <h2>単語リストを選択してください</h2>
-            {% for i in info %}
-            <a href="{% url 'test' i.id %}">{{ i.list_num }} {{ i.list_name }}</a>
-            {% endfor %}
+    <div id="container">
+        <div class="sidebar">
+            <ul>
+                <li><a href="{% url 'top' %}">トップページ</a></li>
+                <li><a href="{% url 'genre_list' %}">単語リスト</a></li>
+                <li><a href="{% url 'genre_select' %}">テストページ</a></li>
+                <br>
+                <br>
+                <br>
+                <li><a href="#" onclick="window.history.back(); return false;">前のページに戻る</a></li>
+            </ul>
         </div>
-        {% else %}
-        <div>
-            <h2>ジャンルを選択してください</h2>
-            {% for g in genre_list %}
-            <a href="{% url 'num_select' g.id %}">{{ g.genre }}</a>
-            {% endfor %}
+        <div class="content">
+            <h1>単語テスト</h1>
+            <h2>テスト内容を選択してください</h2>
+            {% if info %}
+            <div>
+                <p>選択したジャンル</p>
+                <p>{{ genre_list.genre }}</p>
+                <a href="{% url 'genre_select' %}">ジャンルを選びなおす</a>
+                <br>
+                <h2>単語リストを選択してください</h2>
+                <ol>
+                    {% for i in info %}
+                    <li><a href="{% url 'test' i.id %}">{{ i.list_num }} {{ i.list_name }}</a></li>
+                    {% endfor %}
+                </ol>
+            </div>
+            {% else %}
+            <div>
+                <h2>ジャンルを選択してください</h2>
+                {% for g in genre_list %}
+                <ul>
+                    <li><a href="{% url 'num_select' g.id %}">{{ g.genre }}</a></li>
+                </ul>
+                {% endfor %}
+            </div>
+            {% endif %}
         </div>
-        {% endif %}
+    </div>
 </body>
 
 </html>

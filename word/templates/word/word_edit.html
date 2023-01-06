@@ -4,29 +4,44 @@
 <head>
     <meta charset="UTF-8">
     <title>単語・意味の編集</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'word/css/all.css' %}">
 </head>
 
 <body>
-    <h1>単語・意味の編集</h1>
-    <br>
-    <input type="button" onclick="window.history.back();" value="前のページに戻る">
-    <br>
-    <form action="{% url 'word_edit' word.id info %}" method="post">
-        {% csrf_token %}
-        <table>
-            <tr>
-                <th>単語</th>
-                <th>意味</th>
-            </tr>
-            <tr>
-                <td><textarea rows="1" name="word">{{ word.word }}</textarea></td>
-                <td><textarea rows="1" name="meaning">{{ word.meaning }}</textarea></td>
-            </tr>
-        </table>
-    <button type="submit">変更を確定する</button>
-    </form>
-
-    <h2>単語リスト作成</h2>
+    <div id="container">
+        <div class="sidebar">
+            <ul>
+                <li><a href="{% url 'top' %}">トップページ</a></li>
+                <li><a href="{% url 'genre_list' %}">単語リスト</a></li>
+                <li><a href="{% url 'genre_select' %}">テストページ</a></li>
+                <br>
+                <br>
+                <br>
+                <li><a href="#" onclick="window.history.back(); return false;">前のページに戻る</a></li>
+            </ul>
+        </div>
+        <div class="content">
+            <h1>単語・意味の編集</h1>
+            <br>
+            <input type="button" onclick="window.history.back();" value="前のページに戻る">
+            <br>
+            <form action="{% url 'word_edit' word.id info %}" method="post">
+                {% csrf_token %}
+                <table>
+                    <tr>
+                        <th>単語</th>
+                        <th>意味</th>
+                    </tr>
+                    <tr>
+                        <td><textarea rows="1" name="word">{{ word.word }}</textarea></td>
+                        <td><textarea rows="1" name="meaning">{{ word.meaning }}</textarea></td>
+                    </tr>
+                </table>
+                <button type="submit">変更を確定する</button>
+            </form>
+        </div>
+    </div>
 </body>
 
 </html>

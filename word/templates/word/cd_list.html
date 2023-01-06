@@ -4,39 +4,55 @@
 <head>
     <meta charset="UTF-8">
     <title>リストの作成・削除</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'word/css/all.css' %}">
 </head>
 
 <body>
-    <h2>リストの作成</h2>
-    <br>
-<form action="{% url 'create_list' genre %}" method="post">
-    {% csrf_token %}
-    <label>作成するリスト番号を入力してください(重複可)</label>
-    <textarea rows="1" name="num"></textarea>
-    <br>
-    <label>作成するリスト名を入力してください(重複可)</label>
-    <textarea rows="1" name="name"></textarea>
-    <br>
-    <button type="submit">決定</button>
-</form>
-<h2>リストの削除</h2>
-<br>
-<h3>リストを削除するとそのリスト内の単語も削除されます。</h3>
-    <table>
-        <tr>
-            <th>リスト番号</th>
-            <th>リスト名</th>
-            <th></th>
-        </tr>
-        {% for i in info %}
-        <tr>
-            <td>{{ i.list_num }}</td>
-            <td>{{ i.list_name }}</td>
-            <td><a href="{% url 'list_delete' genre i.id %}">削除する</a></td>
-        </tr>
-        {% endfor %}
-    </table>
-    <input type="button" onclick="window.history.back();" value="リスト選択に戻る">
+    <div id="container">
+        <div class="sidebar">
+            <ul>
+                <li><a href="{% url 'top' %}">トップページ</a></li>
+                <li><a href="{% url 'genre_list' %}">単語リスト</a></li>
+                <li><a href="{% url 'genre_select' %}">テストページ</a></li>
+                <br>
+                <br>
+                <br>
+                <li><a href="#" onclick="window.history.back(); return false;">前のページに戻る</a></li>
+            </ul>
+        </div>
+        <div class="content">
+            <h2>リストの作成</h2>
+            <br>
+            <form action="{% url 'create_list' genre %}" method="post">
+                {% csrf_token %}
+                <label>作成するリスト番号を入力してください(重複可)</label>
+                <textarea rows="1" name="num"></textarea>
+                <br>
+                <label>作成するリスト名を入力してください(重複可)</label>
+                <textarea rows="1" name="name"></textarea>
+                <br>
+                <button type="submit">決定</button>
+            </form>
+            <h2>リストの削除</h2>
+            <br>
+            <h3>リストを削除するとそのリスト内の単語も削除されます。</h3>
+            <table>
+                <tr>
+                    <th>リスト番号</th>
+                    <th>リスト名</th>
+                    <th></th>
+                </tr>
+                {% for i in info %}
+                <tr>
+                    <td>{{ i.list_num }}</td>
+                    <td>{{ i.list_name }}</td>
+                    <td><a href="{% url 'list_delete' genre i.id %}">削除する</a></td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
 </body>
 
 </html>

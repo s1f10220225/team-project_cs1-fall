@@ -243,11 +243,23 @@ def result(request, belong):
     if request.method == 'POST':
         cnt = 1
         test_data = Test.objects.all()
-        for i in test_data:
-            result = Test.objects.get(pk=i.id)
-            result.answer = request.POST[f'{cnt}']
-            result.save()
-            cnt += 1
+        try:
+            for i in test_data:
+                result = Test.objects.get(pk=i.id)
+                result.answer = request.POST[f'{cnt}']
+                result.save()
+                cnt += 1
+        except:
+            info = Listinfo.objects.get(pk=belong)
+            genre = Genre.objects.get(pk=info.genre_id)
+            context = {
+                'word': Word.objects.filter(belonging_list_id=belong),
+                'test_data': test,
+                'info': info,
+                'genre': genre,
+    }
+            return render(request, "word/test.html", context)
+
     cnt -= 1
     pnt = 0
     for i in test_data:
@@ -263,6 +275,6 @@ def result(request, belong):
         'point': pnt,
         'full': cnt,
         'info': info,
-        'genre': Genre.objects.get(pk=info.id),
+        'genre': Genre.objects.get(pk=info.genre_id),
     }
     return render(request, "word/result.html", context)

@@ -4,22 +4,39 @@
 <head>
     <meta charset="UTF-8">
     <title>単語リスト</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'word/css/all.css' %}">
 </head>
 
 <body>
-    {% if genre_list %}
-    <div>
-        <p>選択したジャンル</p>
-        <p>{{ genre_list.genre }}</p>
-        <input type="button" onclick="window.history.back();" value="ジャンルを選びなおす">
-        <br>
-        <a href="{% url 'cd_list' genre_list.id %}">単語リストの作成・削除</a>
+    <div id="container">
+        <div class="sidebar">
+            <ul>
+                <li><a href="{% url 'top' %}">トップページ</a></li>
+                <li><a href="{% url 'genre_list' %}">単語リスト</a></li>
+                <li><a href="{% url 'genre_select' %}">テストページ</a></li>
+                <br>
+                <br>
+                <br>
+                <li><a href="#" onclick="window.history.back(); return false;">前のページに戻る</a></li>
+            </ul>
+        </div>
+        <div class="content">
+            {% if genre_list %}
+            <div>
+                <p>選択したジャンル</p>
+                <p>{{ genre_list.genre }}</p>
+                <input type="button" onclick="window.history.back();" value="ジャンルを選びなおす">
+                <br>
+                <a href="{% url 'cd_list' genre_list.id %}">単語リストの作成・削除</a>
+            </div>
+            {% else %}
+            <div>
+                <a href="{% url 'cd_genre' %}">ジャンルの作成・削除</a>
+            </div>
+            {% endif %}
+        </div>
     </div>
-    {% else %}
-    <div>
-        <a href="{% url 'cd_genre' %}">ジャンルの作成・削除</a>
-    </div>
-    {% endif %}
 </body>
 
 </html>

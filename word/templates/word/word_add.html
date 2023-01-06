@@ -4,29 +4,46 @@
 <head>
     <meta charset="UTF-8">
     <title>単語・意味の編集</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'word/css/all.css' %}">
 </head>
 
 <body>
-    <h1>単語・意味の編集</h1>
-    <br>
-    <input type="button" onclick="window.history.back();" value="戻る">
-    <br>
-    <form action="{% url 'word_update' info select %}" method="post">
-        {% csrf_token %}
-        <table>
-            <tr>
-                <th>単語</th>
-                <th>意味</th>
-            </tr>
-            {% for s in select_lst %}
-            <tr>
-                <td><textarea rows="1" name="word{{ s }}"></textarea></td>
-                <td><textarea rows="1" name="meaning{{ s }}"></textarea></td>
-            </tr>
-            {% endfor %}
-        </table>
-    <button type="submit">追加する単語を確定する</button>
-    </form>
+    <div id="container">
+        <div class="sidebar">
+            <ul>
+                <li><a href="{% url 'top' %}">トップページ</a></li>
+                <li><a href="{% url 'genre_list' %}">単語リスト</a></li>
+                <li><a href="{% url 'genre_select' %}">テストページ</a></li>
+                <br>
+                <br>
+                <br>
+                <li><a href="#" onclick="window.history.back(); return false;">前のページに戻る</a></li>
+            </ul>
+        </div>
+        <div class="content">
+            <h1>単語・意味の編集</h1>
+            <br>
+            <input type="button" onclick="window.history.back();" value="戻る">
+            <br>
+            <form action="{% url 'word_update' info select %}" method="post">
+                {% csrf_token %}
+                <table>
+                    <tr>
+                        <th>単語</th>
+                        <th>意味</th>
+                    </tr>
+                    {% for s in select_lst %}
+                    <tr>
+                        <td><textarea rows="1" name="word{{ s }}"></textarea></td>
+                        <td><textarea rows="1" name="meaning{{ s }}"></textarea></td>
+                    </tr>
+                    {% endfor %}
+                </table>
+                <button type="submit">追加する単語を確定する</button>
+            </form>
+        </div>
+    </div>
 </body>
 
 </html>

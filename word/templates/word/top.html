@@ -4,23 +4,34 @@
 <head>
     <meta charset="UTF-8">
     <title>単語管理アプリ</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'word/css/all.css' %}">
 </head>
 
 <body>
-    <h1>ようこそ単語管理アプリへ！</h1>
-    <!--機能選択-->
-    <div>
-        <p>機能を選択してください</p>
-        <a href="{% url 'genre_list' %}">単語リスト(作成もこちらから！)</a>
-        <a href="{% url 'genre_select' %}">単語テスト</a>
-    </div>
-    <br>
-    <!--
-        ここから下はよく使う機能とかを一覧で表示したい
-        上の機能の中にある機能(ジャンル選択とか)をおいてもいいかも
-    -->
-    <div>
-        <h3>クイックアクセス</h3>
+    <div id="container">
+        <div class="sidebar">
+            <ul>
+                <li><a href="{% url 'top' %}">トップページ</a></li>
+                <li><a href="{% url 'genre_list' %}">単語リスト</a></li>
+                <li><a href="{% url 'genre_select' %}">テストページ</a></li>
+                <br>
+                <br>
+                <br>
+                <li><a href="#" onclick="window.history.back(); return false;">前のページに戻る</a></li>
+            </ul>
+        </div>
+        <div class="content">
+            <h1>ようこそ単語管理アプリへ！</h1>
+            <!--機能選択-->
+            <div>
+                <p>機能を選択してください</p>
+                <ul>
+                    <li><a href="{% url 'genre_list' %}">単語リスト(作成もこちらから！)</a></li>
+                    <li><a href="{% url 'genre_select' %}">単語テスト</a></li>
+                </ul>
+            </div>
+        </div>
     </div>
 </body>
 
