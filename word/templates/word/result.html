@@ -18,12 +18,12 @@
     {% for test in test_data %}
     <div class="every_test">
         <p>結果：
-            {% if test.answer == correct_answer %}
+            {% if test.answer == test.correct_answer %}
             正解
         </p>
         <img src="{% static 'word/img/0.png' %}" width="50px">
         {% else %}
-        不正解
+            不正解
         </p>
         <img src="{% static 'word/img/1.png' %}" width="50px">
         {% endif %}

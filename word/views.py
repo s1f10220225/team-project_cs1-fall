@@ -37,16 +37,14 @@ def genre_list(request):
     return render(request, "word/list_select.html", context)
 
 def name_list(request, genre):
-    try:
-        info = Listinfo.objects.filter(genre_id=genre)
-    except Listinfo.DoesNotExist:
-        return redirect(f"http://127.0.0.1:8000/word/first/list_select/{genre}")
     context = {
         'genre_list': Genre.objects.get(pk=genre),
-        'info': info,
+        'info': Listinfo.objects.filter(genre_id=genre),
     }
-    return render(request, "word/list_select.html", context)
-
+    try:
+        return render(request, "word/list_select.html", context)
+    except TypeError:
+        return redirect(f"http://127.0.0.1:8000/word/first/list_select/{genre}")
 
 def first_genre_select(request):
     return render(request, "word/first_list_select.html")

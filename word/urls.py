@@ -20,5 +20,6 @@ urlpatterns = [
     path('word/delete/<int:word_num>/<int:belong>', views.word_delete, name='word_delete'),
     path('test/select', views.genre_select, name='genre_select'),
     path('test/select/<int:genre>', views.num_select, name='num_select'),
+    path('test/<int:belong>', views.test, name='test'),
     path('test/result/<int:belong>', views.result, name='result'),
 ]
